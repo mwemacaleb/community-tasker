@@ -22,6 +22,7 @@ urlpatterns = [
     path('api/auth/', include('accounts.urls')),
     path('api/tasks/', include('tasks.urls')),
     path('api/bids/', include('bids.urls')),
+    path('api/reviews/', include('reviews.urls')),
 ]
 
 REST_FRAMEWORK = {
