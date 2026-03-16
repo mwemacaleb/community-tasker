@@ -22,4 +22,4 @@ class BidSerializer(serializers.ModelSerializer):
             'status',
             'created_at'
         ]
-        read_only_fields = ['tasker', 'status', 'created_at']
+        read_only_fields = ['tasker', 'status', 'created_at' , 'task']

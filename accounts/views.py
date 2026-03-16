@@ -34,7 +34,10 @@ def login(request):
             'token': token.key,
             'user': UserSerializer(user).data
         })
-    return Response({'error': 'Invalid credentials'}, status=status.HTTP_400_BAD_REQUEST)
+    return Response(
+        {'error': 'Invalid credentials'},
+        status=status.HTTP_400_BAD_REQUEST
+    )
 
 
 @api_view(['GET'])
@@ -42,3 +45,19 @@ def login(request):
 def profile(request):
     serializer = UserSerializer(request.user)
     return Response(serializer.data)
+
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def verify_student(request):
+    user = request.user
+    if user.role != 'tasker':
+        return Response(
+            {'error': 'Only taskers need verification'},
+            status=status.HTTP_400_BAD_REQUEST
+        )
+    user.is_verified = True
+    user.save()
+    return Response({
+        'message': 'Verification submitted successfully'
+    })
